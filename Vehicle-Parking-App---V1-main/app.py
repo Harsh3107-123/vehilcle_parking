@@ -9,4 +9,4 @@ import routes
 # Check if the script is being run directly
 if __name__ == '__main__':
     # run the Flask application
-    app.run(debug=True)
+    app.run()
