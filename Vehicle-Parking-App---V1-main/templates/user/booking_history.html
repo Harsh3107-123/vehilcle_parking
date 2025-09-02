@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+{% block title %}
+<title>Booking history</title>{% endblock %}
+
+{% block content %}
+<div class="my_class">
+<h1 class="text-center mb-4 text-primary"><i class="fas fa-history"></i> Past Bookings</h1>
+
+</p>
+<table class="table table-bordered border-primary">
+    <thead>
+        <tr>
+            <th scope="col">Booking ID</th>
+            <th scope="col">spot Id</th>
+            <th scope="col">booking time</th>
+            <th scope="col">Park-in time</th>
+            <th scope="col">Park-out time</th>
+            <th scope="col">Duration from booking(in hour)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for booking in bookings %}
+        <tr>
+            <td>{{ booking.id }}</td>
+            <td>{{ booking.spot_id }}</td>
+            <td>{{ booking.start_time.strftime('%d-%m-%Y %H:%M:%S') }}</td>
+            <td>{{ booking.parkin_time.strftime('%d-%m-%Y %H:%M:%S') }}</td>
+            <td>{{ booking.parkout_time.strftime('%d-%m-%Y %H:%M:%S') }}</td>
+            {% set duration = (booking.parkout_time - booking.start_time).total_seconds() // 3600 %}
+            {% if duration < 1 %}
+            <td>1(default as duration is less than hour)</td>
+            {% else %}
+            <td>{{ duration }}</td>
+            {% endif %}
+
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}
+{% block style %}
+<style>
+    .my_class {
+        margin: 20px;
+    }
+</style>
+{% endblock %}

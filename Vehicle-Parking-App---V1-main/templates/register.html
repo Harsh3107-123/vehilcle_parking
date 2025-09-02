@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <title>Register</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">'
+    <style>
+     .my_class {
+          background-color: aliceblue;
+          width: 50%;
+          height: 50%;
+          margin: auto;
+          border: 2px solid black;
+          padding:20px;
+          border-radius: 20px;
+     }
+     </style>
+
+</head>
+<body>
+    {% include 'message.html' %}
+    <div class="my_class">
+    <h1 class="text-center mb-4 text-primary">Register</h1>
+    <div class="container mt-5" >
+        <form action="/register" method="POST">
+            <div class="form-group mb-3">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="form-group mb-3">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" min="8" max="20"
+              required>
+            </div>
+            <div class="form-group mb-3">
+                <label for="confirm_password">confirm_password</label>
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password" min="8" max="20"
+              required>
+            </div>
+            <div class="form-group mb-3">
+                <label for="full_name">Full Name</label>
+                <input type="text" class="form-control" id="full_name" name="full_name">
+            </div>
+            <div class="form-group mb-3">
+                <label for="date_of_birth">Date Of Birth</label>
+                <input type="date" class="form-control" id="date_of_birth" name="date_of_birth">
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Register</button>
+        </form>
+    </div>
+    </div>
+
+</body>

@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% block title %}
+  <title>spot detail</title>
+{% endblock %}
+{% block content %}
+<br>
+<div class="container">
+    <h1 class="text-center mb-4 text-primary"><i class="fas fa-car"></i>Vehicle Details</h1>
+    <br>
+    <div class="vehicle-division">
+        <strong>user Id:</strong><p>{{ user.id }}</p>
+    </div> 
+        <div class="vehicle-division">
+        <strong>Vehicle Type:</strong><p>{{ vehicle.vehicle_type }}</p>
+    </div> 
+        <div class="vehicle-division">
+        <strong>Vehicle Number:</strong><p>{{ vehicle.vehicle_number }}</p>
+    </div> 
+        <div class="vehicle-division">
+        <strong>Vehicle Owner:</strong><p>{{ user.username }}</p>
+    </div> 
+</div>
+{% endblock %}
+{% block style %}
+<style>
+    .container{
+        max-width: 700px;
+        margin: auto;
+        padding: 20px;
+        background-color: gainsboro;
+        border-radius: 10px;
+       
+    }
+</style>
+{% endblock %}

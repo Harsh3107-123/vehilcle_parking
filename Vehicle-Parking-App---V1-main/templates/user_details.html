@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+{% block title %}
+<title>
+    User details
+</title>
+{% endblock %}
+{% block content %}
+<div class="my_class">
+<h1 class="text-center mb-4 text-primary"><i class="fas fa-users"></i>User details</h1>
+<table class="table table-bordered border-primary">
+    <thead>
+        <tr>
+            <th scope="col">User_id</th>
+            <th scope="col">Username</th>
+            <th scope="col">Fullname</th>
+            <th scope="col">Date_of_birth</th>
+            <th scope="col">Spots Used</th>
+            <th scope="col">Is_Admin</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.full_name }}</td>
+            {% if user.date_of_birth %}
+            <td>{{ user.date_of_birth.strftime('%d-%m-%Y') }}</td>
+            {% else %}
+            <td>None</td>
+            {% endif %}
+            <td>{{user.spots|length}}</td>
+            {% if user.is_admin %}
+            <td>Admin</td>
+            {% else %}
+            <td>General</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}
+{% block style %}
+<style>
+    .my_class {
+        margin: 20px;
+    }
+</style>
+{% endblock %}

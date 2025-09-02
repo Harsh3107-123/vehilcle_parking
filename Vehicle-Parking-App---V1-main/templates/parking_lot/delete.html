@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% block title %}
+<title>Delete Parking Lot</title>   
+{% endblock %}
+{% block content %} 
+<br>
+<div class="container">
+    <h1 class="text-center mb-4 text-primary">Delete Parking Lot</h1>
+    <h1>Are you sure you want to delete the parking lot at {{ parking_lot.prime_location_name }}?</h1>
+    <ul>
+        
+        <li><b>Location</b>: {{ parking_lot.prime_location_name }}</li>
+        <li><b>Address</b>: {{ parking_lot.address }}</li>
+        <li><b>Pincode</b>: {{ parking_lot.pincode }}</li>
+        <li><b>Capacity</b>: {{ parking_lot.maximum_number_of_spots }}</li>
+        <li><b>Price per Hour</b>: {{ parking_lot.price }}</li>
+
+    </ul>
+    <form method="POST" action="{{ url_for('parking_lot_delete_post', id=parking_lot.id) }}">
+        <div class="form-group">
+            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
+</div>
+{% endblock %}
+{% block style %}
+<style>
+    .container{
+        max-width: 700px;
+        margin: auto;
+        padding: 20px;
+        background-color: #fbfbfb;
+        border-radius: 5px;
+    }
+</style>
+{% endblock %}
+

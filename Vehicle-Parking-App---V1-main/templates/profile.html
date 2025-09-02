@@ -1,0 +1,107 @@
+{% extends 'layout.html' %}
+{% block title %} <title>Profile</title> {% endblock %}
+{% block content %}
+<div class="extra">
+    <h1 class="text-center mb-4 text-primary"><i class="fas fa-user-circle"></i> Profile</h1>
+    <div class="profile-header">
+        <div class="profile-details">
+            <p>Username: {{ user.username }}</p>
+            <p>Date of Birth:
+                {% if user.date_of_birth %}
+                {{ user.date_of_birth.strftime('%Y-%m-%d') }}
+                {% else %}
+                -
+                {% endif %}
+            </p>
+
+            <p> Full_name:{% if user.full_name %}
+                {{ user.full_name }}
+                {% else %}
+                -
+                {% endif %}</p>
+        </div>
+        <div class="profile-image">
+
+            <img src="
+https://ui-avatars.com/api/?name={{ user.username }}" width="100" alt="profile picture">
+            <br>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger mt-3">Logout</a>
+        </div>
+    </div>
+</div>
+<div class="my_class">
+    <h1><i class="fas fa-user-pen"></i>Change profile</h1>
+    <div class="container">
+        <form method="Post" action="{{ url_for('profile') }}">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}">
+            </div>
+            <div class=" form-group">
+                <label for="old_password">Current_Password</label>
+                <input type="password" class="form-control" id="old_password" name="old_password">
+            </div>
+            <div class="form-group">
+                <label for="new_password">New Password</label>
+                <input type="password" class="form-control" id="new_password" name="new_password">
+            </div>
+            <div class="form-group">
+                <label for="full_name">Full Name</label>
+                <input type="text" class="form-control" id="full_name" name="full_name" value="{{ user.full_name }}">
+            </div>
+            <div class="form-group">
+                <label for="date_of_birth">Date of Birth(optional)</label>
+                <input type="date" class="form-control" id="date_of_birth" name="date_of_birth"
+                    value="{{ user.date_of_birth }}">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Update Profile</button>
+        </form>
+    </div>
+    <br>
+    {% endblock %}
+    {% block style %}
+    <style>
+        .my_class {
+            background-color: aliceblue;
+            width: 50%;
+            height: 50%;
+            margin: auto;
+            border: 2px solid black;
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 50px;
+        }
+
+        .my_class h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .profile-image img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #007bff;
+            object-fit: cover;
+        }
+
+        .extra {
+            background-color: #ffe5e5;
+            width: 50%;
+            height: 50%;
+            margin: auto;
+            border: 2px solid black;
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 50px;
+        }
+    </style>
+    {% endblock %}

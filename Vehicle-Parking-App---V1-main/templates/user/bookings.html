@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+<title>Booking</title>
+{% endblock %}
+
+{% block content %}
+<div class="my_class">
+    <h1 class="text-center mb-4 text-primary"><i class="fas fa-calendar-check"></i> Current Bookings</h1>
+    <table class="table table-bordered border-primary">
+        <thead>
+            <tr>
+                <th>Spot ID</th>
+                <th>Park In</th>
+                <th>Park Out</th>
+                <th>Actions</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            {% if booking.user_id==user_id %}
+            <tr>
+                <td>{{ booking.id }}</td>
+
+                <td>
+                    {% if booking.parking_timestamp == None %}
+                    -
+                    {% else %}
+                    {{ booking.parking_timestamp.strftime('%d-%m-%Y %H:%M:%S') }}
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if booking.leaving_timestamp == None %}
+                    -
+                    {% else %}
+                    {{ booking.leaving_timestamp.strftime('%d-%m-%Y %H:%M:%S') }}
+                    {% endif %}
+                </td>
+
+                <td>
+                    <form method="POST" action="{{ url_for('parkin', spot_id=booking.id,lot_id=booking.lot_id) }}"
+                        style="display:inline;">
+                        {% if booking.parking_timestamp == None %}
+                        <button class="btn btn-success btn-sm">Park In</button>
+                        {% else %}
+                        <button class="btn btn-secondary btn-sm" disabled>Park In</button>
+                        {% endif %}
+                    </form>
+
+                    <form method="POST" action="{{ url_for('parkout', spot_id=booking.id,lot_id=booking.lot_id) }}"
+                        style="display:inline;">
+                        {% if booking.leaving_timestamp == None %}
+                        <button class="btn btn-danger btn-sm">Park Out</button>
+                        {% else %}
+                        <button class="btn btn-secondary btn-sm" disabled>Park Out</button>
+                        {% endif %}
+                    </form>
+                </td>
+
+                <td>
+                    {% if booking.status == 'A' %}
+                    Available
+                    {% elif booking.status == 'O' %}
+                    Occupied
+                    {% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+{% block style %}
+<style>
+    .my_class {
+        margin: 20px;
+    }
+</style>
+{% endblock %}

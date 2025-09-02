@@ -1,0 +1,100 @@
+{% extends 'layout.html' %}
+{% block title %}<title>Admin page</title>{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <h1 class="text-center mb-4 text-primary">Welcome to the Admin Page!</h1>
+
+  <!-- Stats Cards -->
+  <div class="row row-cols-1 row-cols-md-3 g-4 mb-5 text-center">
+    <div class="col">
+      <div class="card border-primary h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Total Parking Lots</h5>
+          <p class="card-text display-6">{{ parking_lots | length }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card border-success h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Booked Spots</h5>
+          <p class="card-text display-6">{{ booked_spots }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card border-danger h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Occupied Spots</h5>
+          <p class="card-text display-6">{{ occupied_spots_number }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card border-warning h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Free Spots</h5>
+          <p class="card-text display-6">{{ free_spots }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card border-info h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Total Users</h5>
+          <p class="card-text display-6">{{ users }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart Section -->
+  <div class="card mt-5 shadow">
+    <div class="card-body">
+      <h5 class="card-title text-center mb-4">Parking Lot Occupancy Chart</h5>
+      <div class="d-flex justify-content-center">
+        <canvas id="myChart" style="max-width: 800px; height: 400px;"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('myChart');
+  const colors = ['#007bff', '#dc3545', '#28a745', '#ffc107', '#6610f2', '#fd7e14'];
+  let backgroundcolor = [];
+
+  for (let i = 0; i < {{ parking_lots | length }}; i++) {
+    backgroundcolor.push(colors[i % colors.length]);
+  }
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: {{ parking_lots | safe}},
+      datasets: [{
+        label: 'Occupied Spots',
+        data: {{ occupied_spots }},
+        backgroundColor: backgroundcolor,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            precision: 0
+          }
+        }
+      }
+    }
+  });
+</script>
+{% endblock %}

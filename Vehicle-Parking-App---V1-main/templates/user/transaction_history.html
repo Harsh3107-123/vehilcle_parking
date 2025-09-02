@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+{% block title %}
+<title>parking_lot</title>{% endblock %}
+
+{% block content %}
+{%if transactions%}
+<div class="summary">
+    <h1 class="text-center mb-4 text-primary"><i class="fas fa-receipt"></i> Transaction History</h1>
+    {% for transaction in transactions %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">
+                            <h2 class="text-muted">Transaction ID:{{transaction.id}}</h2>
+            <p class="datetime">{{transaction.datetime.strftime('%d %b %Y, %I:%M %p')}}</p>
+            </h5>
+            <p class="card-text"><strong>User Name:</strong> {{ transaction.user.username }}</p>
+            <p class="card-text"><strong>Spot ID:</strong> {{ transaction.spot_id }}</p>
+            <p class="card-text"><strong>Total Cost:</strong> &#8377;{{ transaction.total_cost }} </p>
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+</div>
+{% else %}
+<h1 class="display-4 text-primary fw-bold">There are no transactions!!!</h1>
+{% endif %}
+{% endblock %}
+{% block style %}
+<style>
+    .summary{
+        flex-direction: column;
+        margin: 20px;
+    }
+    .card{
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .card-body{
+        padding: 1rem;  
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+<title>Parking Spots</title>
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center mb-4 text-primary"><i class="fas fa-car-side"></i>Parking Spots</h1>
+<div class="container">
+  {% for parking_spot in parking_spots %}
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Spot</h5>
+      <p class="card-text"><strong>Spot ID:</strong> {{ parking_spot.id }}</p>
+      {% if parking_spot.status == 'A' and parking_spot.user_id %}
+      <img src="{{ url_for('static', filename='images/booked.png') }}" alt="Smart Parking"
+        class="img-fluid rounded shadow" >
+      <strong>Status:</strong>
+        <p class="card-text" style="color:#B8860B;"> Booked</p>
+
+      {% elif parking_spot.status == 'O' %}
+      <img src="{{ url_for('static', filename='images/occupied.png') }}" alt="Smart Parking"
+        class="img-fluid rounded shadow" style="max-height: 350px;">
+      <strong>Status:</strong>
+      <p class="card-text" style="color: red;">Occupied</p>
+      <a href="{{ url_for('details',lot_id=lot_id, spot_id=parking_spot.id) }}" class="btn btn-primary">Details</a>
+      {% else %}
+      <img src="{{ url_for('static', filename='images/available.png') }}" alt="Smart Parking"
+        class="img-fluid rounded shadow" style="max-height: 350px;">
+      <strong>Status:</strong>
+      <p class="card-text" style="color: green;">Available</p>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block style %}
+<style>
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .card {
+    width: 16rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+</style>
+{% endblock %}
